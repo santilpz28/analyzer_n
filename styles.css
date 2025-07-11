@@ -1,0 +1,129 @@
+/* Reset simplificado */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+.container {
+  max-width: 600px;
+  padding: 2rem 1rem;
+  margin: 0 auto;
+}
+
+/* ─── Form ───────────────────────────── */
+form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  gap: 0.25rem;
+}
+
+input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #0066e6;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #0052b3;
+}
+
+/* ─── Spinner ────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+
+.loader {
+  width: 32px;
+  height: 32px;
+  border: 4px solid #ddd;
+  border-top-color: #0066e6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 0.75rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Risk bar ───────────────────────── */
+#risk-bar-wrapper {
+  position: relative;
+  height: 24px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+#risk-bar {
+  height: 100%;
+  width: 0%;
+  transition: width 0.6s ease;
+}
+
+#risk-score-label {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+}
+
+/* Responsive tweak */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* … (todo tu CSS previo sin cambios) … */
+
+/* Mensaje de estado */
+.status {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #fffbe6;
+  color: #8a6d3b;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.status.error {
+  background: #f8d7da;
+  color: #721c24;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analizador de Riesgo Web3</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Analizador de Riesgo Web3</h1>
+
+    <!-- Formulario -->
+    <form id="analyze-form">
+      <label>
+        Dominio / URL
+        <input
+          type="text"
+          id="domain"
+          name="domain"
+          placeholder="example.com"
+          autocomplete="off" />
+      </label>
+
+      <label>
+        Dirección de contrato
+        <input
+          type="text"
+          id="contract"
+          name="contract"
+          placeholder="0x..."
+          autocomplete="off" />
+      </label>
+
+      <button type="submit">Analizar</button>
+    </form>
+
+    <!-- Spinner -->
+    <div id="spinner" class="hidden">
+      <div class="loader"></div>
+      <p>Analizando… esto puede tardar unos segundos.</p>
+    </div>
+
+    <!-- Resultados -->
+    <section id="result" class="hidden">
+      <h2>Resultado</h2>
+
+      <!-- Mensajes de estado (pendiente, no encontrado, error…) -->
+      <p id="status-message" class="status hidden"></p>
+
+      <!-- Barra de riesgo -->
+      <div id="risk-bar-wrapper">
+        <div id="risk-bar"></div>
+        <span id="risk-score-label"></span>
+      </div>
+
+      <ul id="details"></ul>
+    </section>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
+<!-- File: MVP/main.js -->
