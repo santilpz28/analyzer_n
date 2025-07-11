@@ -85,28 +85,40 @@ form.addEventListener("submit", async (e) => {
 /* ------------------------------------------------------------------
    Mostrar resultado con puntuaciones
 ------------------------------------------------------------------ */
-function showResult(data) {
-  const { mode, riskScore, domainScore, contractScore } = data;
+function showResult(dataRaw) {
+  // 1. Aceptar array [ {...} ] o objeto { ... }
+  const data = Array.isArray(dataRaw) ? dataRaw[0] : dataRaw;
 
-  if (typeof riskScore !== "number" || Number.isNaN(riskScore)) {
+  // 2. Asegurar campos mínimos
+  let { mode, riskScore, domainScore, contractScore, whitelisted } = data;
+
+  // Si viene sólo "whitelisted"
+  if (whitelisted && mode === undefined) mode = "whitelisted";
+
+  // Convertir a número por si llega como string
+  riskScore = Number(riskScore);
+
+  // 3. Validar
+  if (!Number.isFinite(riskScore)) {
     showMessage("Respuesta del servidor sin riskScore válido.");
     console.error("Objeto recibido:", data);
     return;
   }
 
-  // clamp por si alguna fórmula futura se pasa de 100
+  // Clamp 0-100
   const safeRisk = Math.min(Math.max(riskScore, 0), 100);
 
-  // barra de riesgo
+  // 4. Pintar barra
   riskBar.style.background = getRiskColor(safeRisk);
   riskBar.style.width      = `${safeRisk}%`;
   riskLabel.textContent    = `${safeRisk.toFixed(1)} / 100`;
 
-  // detalles
+  // 5. Detalles
   detailsList.innerHTML = `
     <li><strong>Modo:</strong> ${mode}</li>
     ${domainScore   !== undefined ? `<li><strong>domainScore:</strong> ${domainScore}</li>` : ""}
     ${contractScore !== undefined ? `<li><strong>contractScore:</strong> ${contractScore}</li>` : ""}
+    ${data.domain   ? `<li><strong>Dominio:</strong> ${data.domain.trim()}</li>` : ""}
   `;
 
   statusMessage.classList.add("hidden");
